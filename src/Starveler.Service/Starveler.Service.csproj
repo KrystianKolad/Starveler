@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="MailKit" Version="2.0.1" />
     <PackageReference Include="RawRabbit" Version="2.0.0-rc3" />
     <PackageReference Include="RawRabbit.vNext" Version="2.0.0-beta8" />
     <PackageReference Include="RawRabbit.Operations.Subscribe" Version="2.0.0-rc3" />
