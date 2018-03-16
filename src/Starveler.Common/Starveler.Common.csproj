@@ -3,8 +3,4 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="RawRabbit" Version="1.10.3" />
-    <PackageReference Include="RawRabbit.vNext" Version="1.10.3" />
-  </ItemGroup>
 </Project>
