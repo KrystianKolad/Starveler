@@ -63,7 +63,7 @@ namespace Starveler.Service
                 .GetService<IEventHandler<OrderReceivedEvent>>();
 
             busClient.SubscribeAsync<OrderReceivedEvent>(async message => {
-                participantWasSignUpHandler.Handle(message);
+                await participantWasSignUpHandler.Handle(message);
             });
         }
     }

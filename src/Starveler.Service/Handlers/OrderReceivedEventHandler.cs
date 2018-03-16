@@ -12,7 +12,7 @@ namespace Starveler.Service.Handlers
         {
             _emailHelper = emailHelper;
         }
-        public void Handle(OrderReceivedEvent @event)
+        public async Task Handle(OrderReceivedEvent @event)
         {
             var messageToSend = new MimeMessage();
 
@@ -20,7 +20,7 @@ namespace Starveler.Service.Handlers
             messageToSend.Subject = "Order Received";
             messageToSend.Body = new TextPart("plain") { Text = "You have new order" };
 
-            _emailHelper.Send(messageToSend);
+            await _emailHelper.Send(messageToSend);
         }
     }
 }

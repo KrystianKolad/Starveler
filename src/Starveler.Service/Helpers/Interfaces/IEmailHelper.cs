@@ -4,6 +4,6 @@ namespace Starveler.Service.Helpers.Interfaces
 {
     public interface IEmailHelper
     {
-         void Send(MimeMessage message);
+         Task Send(MimeMessage message);
     }
 }

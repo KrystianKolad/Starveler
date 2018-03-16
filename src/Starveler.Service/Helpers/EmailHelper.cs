@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
@@ -15,13 +16,13 @@ namespace Starveler.Service.Helpers
         {
             _configuration = optionsAccessor.Value;
         }
-        public void Send(MimeMessage message)
+        public async Task Send(MimeMessage message)
         {
             using (var client = new SmtpClient())
             {
-                client.ConnectAsync(_configuration.Host, _configuration.Port, SecureSocketOptions.None).ConfigureAwait(false);
-                client.SendAsync(message).ConfigureAwait(false);
-                client.DisconnectAsync(true).ConfigureAwait(false);
+                await client.ConnectAsync(_configuration.Host, _configuration.Port, SecureSocketOptions.None).ConfigureAwait(false);
+                await client.SendAsync(message).ConfigureAwait(false);
+                await client.DisconnectAsync(true).ConfigureAwait(false);
             }
         }
     }
