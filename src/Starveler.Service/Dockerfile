@@ -6,4 +6,4 @@ ENV ASPNETCORE_URLS="http://+:5001"
 
 WORKDIR app
 
-ENTRYPOINT dotnet Starveler.Service.dll
+ENTRYPOINT sleep 20 && dotnet Starveler.Service.dll
