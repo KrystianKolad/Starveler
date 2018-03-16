@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Starveler.Api.Dispatchers.Interfaces;
 using Starveler.Common.Entities;
+using Starveler.Common.Events;
 using Starveler.Infrastructure.Services.Interfaces;
 
 namespace Starveler.Api.Controllers
@@ -9,9 +11,12 @@ namespace Starveler.Api.Controllers
     {
         private IOrderService _service;
 
-        public OrderController(IOrderService service)
+        private IDispatcher<OrderReceivedEvent> _orderReceivedEventDispatcher;
+
+        public OrderController(IOrderService service,IDispatcher<OrderReceivedEvent> orderReceivedEventDispatcher)
         {
             _service = service;
+            _orderReceivedEventDispatcher = orderReceivedEventDispatcher;
         }
 
         [HttpPost]
@@ -19,6 +24,7 @@ namespace Starveler.Api.Controllers
         public void Add([FromBody]Order order)
         {
             _service.Add(order);
+            _orderReceivedEventDispatcher.Dispatch(new OrderReceivedEvent());
         }
     }
 }
