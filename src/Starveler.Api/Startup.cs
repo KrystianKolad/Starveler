@@ -9,7 +9,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Starveler.Common.Entities;
 using Starveler.Infrastructure.DataAccess;
+using Starveler.Infrastructure.Repositories;
+using Starveler.Infrastructure.Repositories.Interfaces;
+using Starveler.Infrastructure.Services;
+using Starveler.Infrastructure.Services.Interfaces;
 
 namespace Starveler.Api
 {
@@ -29,6 +34,8 @@ namespace Starveler.Api
             services.AddDbContext<StarvelerContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("StarvelerConnectionString"), b => b.MigrationsAssembly("Starveler.Api"))
             );
+            services.AddScoped<IRepository<Order>,OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

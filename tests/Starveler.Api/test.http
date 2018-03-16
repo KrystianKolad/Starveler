@@ -1,0 +1,6 @@
+POST http://localhost:5000/api/Order/Add
+Content-Type: application/json
+
+{
+    "Comments":"Brak"
+}
