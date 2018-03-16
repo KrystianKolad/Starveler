@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  mssql:
+    image: microsoft/mssql-server-linux
+    networks: 
+      - starveler-net
+    ports:
+      - '1433:1433'
+    environment:
+      SA_PASSWORD: "Starv123!."
+      ACCEPT_EULA: "Y"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    networks: 
+      - starveler-net
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+      - '25672:25672'
+      - '15671:15671'
+      - '5671:5671'
+      - '4369:4369'
+
+  emailserver:
+    image: mailhog/mailhog
+    networks:
+      - starveler-net
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+
+  starveler-api:
+    build: ../src/Starveler.Api/
+    networks:
+      - starveler-net
+    links:
+      - rabbitmq
+      - mssql
+    ports:
+      - '5000:5000'
+
+  starveler-service:
+    build: ../src/Starveler.Service/
+    networks:
+      - starveler-net
+    links:
+      - emailserver
+      - rabbitmq
+    ports:
+      - '5001:5001'
+
+networks: 
+  starveler-net:
+    driver: bridge
