@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RawRabbit;
+using RawRabbit.Configuration;
 using RawRabbit.vNext;
-using Starveler.Api.Options;
+using RawRabbit.vNext.Pipe;
+using Starveler.Api.Dispatchers;
+using Starveler.Api.Dispatchers.Interfaces;
 using Starveler.Common.Entities;
+using Starveler.Common.Events;
+using Starveler.Common.Extensions;
 using Starveler.Infrastructure.DataAccess;
 using Starveler.Infrastructure.Repositories;
 using Starveler.Infrastructure.Repositories.Interfaces;
@@ -33,13 +39,13 @@ namespace Starveler.Api
             );
             services.AddScoped<IRepository<Order>,OrderRepository>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IDispatcher<OrderReceivedEvent>, OrderReceivedEventDispatcher>();
 
-            var sbOptions = new RabbitOptions();
-            var section = Configuration.GetSection("rabbitmq");
-            section.Bind(sbOptions);
-
-             var rabbitMqClient = BusClientFactory.CreateDefault(sbOptions);
-            services.AddSingleton<IBusClient>(_ => rabbitMqClient);
+            services.AddRawRabbit(new RawRabbitOptions {
+                ClientConfiguration = Configuration
+                    .GetRabbitMqConfigurationSection()
+                    .Get<RawRabbitConfiguration>()
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
