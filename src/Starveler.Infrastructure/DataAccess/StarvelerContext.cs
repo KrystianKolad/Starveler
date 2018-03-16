@@ -6,6 +6,11 @@ namespace Starveler.Infrastructure.DataAccess
 {
     public class StarvelerContext : DbContext
     {
+
+        public StarvelerContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
+        {
+            
+        }
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Order> Orders { get; set; }

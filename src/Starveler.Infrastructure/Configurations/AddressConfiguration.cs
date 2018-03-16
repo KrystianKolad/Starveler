@@ -8,7 +8,7 @@ namespace Starveler.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.ToTable("Adresses");
+            builder.ToTable("Addresses");
         }
     }
 }
