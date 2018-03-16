@@ -13,8 +13,12 @@ using RawRabbit.vNext;
 using RawRabbit.vNext.Pipe;
 using Starveler.Common.Events;
 using Starveler.Common.Extensions;
+using Starveler.Service.Configuration;
+using Starveler.Service.Extensions;
 using Starveler.Service.Handlers;
 using Starveler.Service.Handlers.Interfaces;
+using Starveler.Service.Helpers;
+using Starveler.Service.Helpers.Interfaces;
 
 namespace Starveler.Service
 {
@@ -34,7 +38,11 @@ namespace Starveler.Service
                     .GetRabbitMqConfigurationSection()
                     .Get<RawRabbitConfiguration>()
             });
+            services.Configure<EmailConfiguration>(
+                Configuration.GetEmailConfigurationSection());
+                
             services.AddScoped<IEventHandler<OrderReceivedEvent>,OrderReceivedEventHandler>();
+            services.AddScoped<IEmailHelper,EmailHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
