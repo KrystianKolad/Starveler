@@ -35,7 +35,7 @@ namespace Starveler.Api
         {
             services.AddMvc();
             services.AddDbContext<StarvelerContext>(dbOptions => 
-                dbOptions.UseSqlServer(Configuration.GetConnectionString("StarvelerConnectionString"), b => b.MigrationsAssembly("Starveler.Api"))
+                dbOptions.UseSqlServer(Configuration.GetConnectionString("StarvelerConnectionString"), b => b.MigrationsAssembly("Starveler.Migrations"))
             );
             services.AddScoped<IRepository<Order>,OrderRepository>();
             services.AddScoped<IOrderService, OrderService>();

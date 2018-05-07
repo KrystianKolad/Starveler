@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Starveler.Infrastructure.DataAccess;
 using System;
 
-namespace Starveler.Api.Migrations
+namespace Starveler.Migrations.Migrations
 {
     [DbContext(typeof(StarvelerContext))]
     partial class StarvelerContextModelSnapshot : ModelSnapshot

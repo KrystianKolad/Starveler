@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Starveler.Infrastructure.DataAccess;
 using System;
 
-namespace Starveler.Api.Migrations
+namespace Starveler.Migrations.Migrations
 {
     [DbContext(typeof(StarvelerContext))]
-    [Migration("20180316165459_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20180507151143_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

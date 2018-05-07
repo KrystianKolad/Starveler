@@ -18,5 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Starveler.Infrastructure\Starveler.Infrastructure.csproj" />
     <ProjectReference Include="..\Starveler.Common\Starveler.Common.csproj" />
+    <ProjectReference Include="..\Starveler.Migrations\Starveler.Migrations.csproj" />
   </ItemGroup>
 </Project>
