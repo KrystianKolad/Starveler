@@ -20,12 +20,19 @@ project.lock.json
 [Rr]eleases/
 x64/
 x86/
-build/
 bld/
 [Bb]in/
 [Oo]bj/
 msbuild.log
 msbuild.err
 msbuild.wrn
+packages/
+artifacts.*/
 
 # Visual Studio 2015
+
+#fake
+.fake
+packages
+paket-files
+artifacts
