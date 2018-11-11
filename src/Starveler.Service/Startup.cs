@@ -35,7 +35,7 @@ namespace Starveler.Service
         {
             services.AddRawRabbit(new RawRabbitOptions {
                 ClientConfiguration = Configuration
-                    .GetRabbitMqConfigurationSection()
+                    .GetSection("RawRabbit")
                     .Get<RawRabbitConfiguration>()
             });
             services.Configure<EmailConfiguration>(

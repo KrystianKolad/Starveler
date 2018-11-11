@@ -37,15 +37,16 @@ namespace Starveler.Api
             services.AddDbContext<StarvelerContext>(dbOptions => 
                 dbOptions.UseSqlServer(Configuration.GetConnectionString("StarvelerConnectionString"), b => b.MigrationsAssembly("Starveler.Migrations"))
             );
-            services.AddScoped<IRepository<Order>,OrderRepository>();
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IDispatcher<OrderReceivedEvent>, OrderReceivedEventDispatcher>();
 
             services.AddRawRabbit(new RawRabbitOptions {
                 ClientConfiguration = Configuration
-                    .GetRabbitMqConfigurationSection()
+                    .GetSection("RawRabbit")
                     .Get<RawRabbitConfiguration>()
             });
+
+            services.AddScoped<IRepository<Order>,OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IDispatcher<OrderReceivedEvent>, OrderReceivedEventDispatcher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
