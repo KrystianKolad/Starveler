@@ -1,9 +1,9 @@
-FROM microsoft/dotnet
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
 
 ADD ./bin/Publish app/
 
 ENV ASPNETCORE_URLS="http://+:5000"
 
-WORKDIR app
+WORKDIR /app
 
-ENTRYPOINT sleep 20 && dotnet Starveler.Api.dll
+ENTRYPOINT dotnet Starveler.Api.dll

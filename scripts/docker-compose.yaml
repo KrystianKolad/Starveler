@@ -51,6 +51,16 @@ services:
     ports:
       - '5001:5001'
 
+  wait-for-dependencies:
+    image: dadarek/wait-for-dependencies
+    networks:
+      - starveler-net
+    depends_on:
+      - emailserver
+      - rabbitmq
+      - mssql
+    command: emailserver:1025 mssql:1433 rabbitmq:5672
+
 networks: 
   starveler-net:
     driver: bridge
