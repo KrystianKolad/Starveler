@@ -20,15 +20,23 @@ namespace Starveler.Service.Handlers
         }
         public async Task Handle(OrderReceivedEvent @event)
         {
-            _logger.LogInformation("Handling Email");
-            var messageToSend = new MimeMessage();
+            try
+            {
+                _logger.LogInformation("Handling Email");
+                var messageToSend = new MimeMessage();
 
-            messageToSend.From.Add(new MailboxAddress("Order", "Orders@starveler.com"));
-            messageToSend.Subject = "Order Received";
-            messageToSend.Body = new TextPart("plain") { Text = "You have new order" };
+                messageToSend.From.Add(new MailboxAddress("Order", "Orders@starveler.com"));
+                messageToSend.Subject = "Order Received";
+                messageToSend.Body = new TextPart("plain") { Text = "You have new order" };
 
-            await _emailHelper.Send(messageToSend);
-            _logger.LogInformation("Email HandlerSuccesfully");
+                await _emailHelper.Send(messageToSend);
+                _logger.LogInformation("Email HandlerSuccesfully");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError("Email sending failed",ex);
+                throw;
+            }
         }
     }
 }
