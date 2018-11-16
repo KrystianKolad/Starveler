@@ -25,12 +25,17 @@ namespace Starveler.Infrastructure.Repositories
 
         public async Task<IList<Order>> GetAll()
         {
-            return await _context.Orders.ToListAsync();
+            return await _context.Orders
+                .Include(x=>x.Address)
+                .Include(x=>x.OrderItems).ToListAsync();
         }
 
         public async Task<Order> GetById(int id)
         {
-            return await _context.Orders.Where(x=>x.Id.Equals(id)).FirstOrDefaultAsync();
+            return await _context.Orders
+                .Where(x=>x.Id.Equals(id))
+                .Include(x=>x.Address)
+                .Include(x=>x.OrderItems).FirstOrDefaultAsync();
         }
     }
 }
