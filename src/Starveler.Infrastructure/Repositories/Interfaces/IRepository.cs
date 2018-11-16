@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Starveler.Common.Entities;
 
 namespace Starveler.Infrastructure.Repositories.Interfaces
 {
     public interface IRepository<T> where T : BasicEntity
     {
-         void Add(T entity);
-         IList<T> GetAll();
-         T GetById(int id);
+        Task Add(T entity);
+        Task<IList<T>> GetAll();
+        Task<T> GetById(int id);
     }
 }

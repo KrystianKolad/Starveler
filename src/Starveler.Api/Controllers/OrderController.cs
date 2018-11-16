@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Starveler.Api.Dispatchers.Interfaces;
 using Starveler.Common.Entities;
@@ -19,11 +20,25 @@ namespace Starveler.Api.Controllers
             _orderReceivedEventDispatcher = orderReceivedEventDispatcher;
         }
 
-        [HttpPost]
-        public void Post([FromBody]Order order)
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
-            _service.Add(order);
+            return Ok(await _service.GetAll());
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            return Ok( await _service.GetById(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]Order order)
+        {
+            await _service.Add(order);
             _orderReceivedEventDispatcher.Dispatch(new OrderReceivedEvent());
+            return Ok();
         }
     }
 }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Starveler.Common.Entities;
 using Starveler.Infrastructure.DataAccess;
 using Starveler.Infrastructure.Repositories.Interfaces;
@@ -15,20 +17,20 @@ namespace Starveler.Infrastructure.Repositories
             _context = context;
             _context.Database.EnsureCreated();
         }
-        public void Add(Order entity)
+        public async Task Add(Order entity)
         {
-            _context.Orders.Add(entity);
+            await _context.Orders.AddAsync(entity);
             _context.SaveChanges();
         }
 
-        public IList<Order> GetAll()
+        public async Task<IList<Order>> GetAll()
         {
-            return _context.Orders.ToList();
+            return await _context.Orders.ToListAsync();
         }
 
-        public Order GetById(int id)
+        public async Task<Order> GetById(int id)
         {
-            return _context.Orders.Where(x=>x.Id.Equals(id)).FirstOrDefault();
+            return await _context.Orders.Where(x=>x.Id.Equals(id)).FirstOrDefaultAsync();
         }
     }
 }

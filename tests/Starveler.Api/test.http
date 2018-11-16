@@ -4,3 +4,8 @@ Content-Type: application/json
 {
     "Comments":"Brak"
 }
+
+GET http://localhost:5000/api/Order
+
+
+GET http://localhost:5000/api/Order/14
