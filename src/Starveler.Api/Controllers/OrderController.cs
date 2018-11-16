@@ -20,8 +20,7 @@ namespace Starveler.Api.Controllers
         }
 
         [HttpPost]
-        [Route("[action]")]
-        public void Add([FromBody]Order order)
+        public void Post([FromBody]Order order)
         {
             _service.Add(order);
             _orderReceivedEventDispatcher.Dispatch(new OrderReceivedEvent());

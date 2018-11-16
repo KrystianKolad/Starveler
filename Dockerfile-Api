@@ -1,0 +1,20 @@
+FROM microsoft/dotnet:2.1-sdk as builder
+
+COPY ./src/Starveler.Migrations/. /source/Starveler.Migrations/
+COPY ./src/Starveler.Common/. /source/Starveler.Common/
+COPY ./src/Starveler.Infrastructure/. /source/Starveler.Infrastructure/
+COPY ./src/Starveler.Api/. /source/Starveler.Api/
+
+WORKDIR /source/Starveler.Api
+
+RUN dotnet publish -o ../artifacts
+
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
+
+COPY --from=builder /source/artifacts/. app/
+
+ENV ASPNETCORE_URLS="http://+:5000"
+
+WORKDIR /app
+
+ENTRYPOINT dotnet Starveler.Api.dll

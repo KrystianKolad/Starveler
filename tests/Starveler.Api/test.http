@@ -1,4 +1,4 @@
-POST http://localhost:5000/api/Order/Add
+POST http://localhost:5000/api/Order
 Content-Type: application/json
 
 {

@@ -32,7 +32,9 @@ services:
       - '8025:8025'
 
   starveler-api:
-    build: ../src/Starveler.Api/
+    build:
+      context: ..
+      dockerfile: Dockerfile-Api
     networks:
       - starveler-net
     links:
@@ -42,7 +44,9 @@ services:
       - '5000:5000'
 
   starveler-service:
-    build: ../src/Starveler.Service/
+    build:
+      context: ..
+      dockerfile: Dockerfile-Service
     networks:
       - starveler-net
     links:

@@ -1,0 +1,18 @@
+FROM microsoft/dotnet:2.1-sdk as builder
+
+COPY ./src/Starveler.Common/. /source/Starveler.Common/
+COPY ./src/Starveler.Service/. /source/Starveler.Service/
+
+WORKDIR /source/Starveler.Service
+
+RUN dotnet publish -o ../artifacts
+
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
+
+COPY --from=builder /source/artifacts/. app/
+
+ENV ASPNETCORE_URLS="http://+:5001"
+
+WORKDIR /app
+
+ENTRYPOINT dotnet Starveler.Service.dll
